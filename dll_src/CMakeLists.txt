@@ -26,6 +26,11 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 # C++ version specification.
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_23)
 
+# Definitions.
+target_compile_definitions(${PROJECT_NAME} PRIVATE
+    VERSION=L"${VERSION}"
+)
+
 # Compiler Dependent Options.
 if (MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE
