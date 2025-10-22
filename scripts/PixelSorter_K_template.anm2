@@ -1,0 +1,61 @@
+--infomation:${SCRIPT_NAME} ${VERSION} by ${AUTHOR}
+--label:${LABEL}
+--select@s0:Sort By=1,Luminance (BT.601)=0,Luminance (BT.709)=1,Luminance (BT.2020)=2,RGB Average=3,RGB Product=4,RGB Minimum=5,RGB Maximum=6
+--track0:Sort From,0,255,64
+--track1:Sort To,0,255,128
+--track2:Direction,-3600,3600,0,0.01
+--select@s1:Color Space=1,Linear=0,sRGB=1
+--check0:Mask,0
+--value@_0:PI,{}
+--[[pixelshader@meta:
+${SHADER_META}
+]]
+
+local function tobool(v, d)
+    if (type(v) == "boolean") then
+        return v
+    elseif (type(v) == "number") then
+        return v ~= 0
+    else
+        return d
+    end
+end
+
+_0 = _0 or {}
+local sort_by = tonumber(_0.sort_by) or s0 s0 = nil
+local sort_from = (tonumber(_0.sort_from) or obj.track0) / 255.0
+local sort_to = (tonumber(_0.sort_to) or obj.track1) / 255.0
+local dir = tonumber(_0.dir) or obj.track2
+local col_space = tonumber(_0.col_space) or s1 s1 = nil
+local mask = tobool(_0.mask, obj.check0) and 1 or 0
+_0 = nil
+
+local lib = obj.module("PixelSorter_K")
+
+local w, h = obj.getpixel()
+local rot = math.rad(dir)
+local c = math.abs(math.cos(rot))
+local s = math.abs(math.sin(rot))
+local meta_w = c * w + s * h
+local meta_h = s * w + c * h
+
+obj.setoption("drawtarget", "tempbuffer", meta_w, meta_h)
+obj.draw(0, 0, 0, 1, 1, 0, 0, -dir)
+obj.copybuffer("object", "tempbuffer")
+
+obj.pixelshader("meta", "tempbuffer", "object", {
+    meta_w, meta_h,
+    sort_from, sort_to,
+    sort_by,
+    col_space
+})
+
+local px, _, _ = obj.getpixeldata("object")
+local meta, _, _ = obj.getpixeldata("tempbuffer")
+lib.sort(px, meta, meta_w, meta_h, mask)
+obj.putpixeldata("object", px, meta_w, meta_h)
+
+obj.setoption("drawtarget", "tempbuffer", w, h)
+obj.draw(0, 0, 0, 1, 1, 0, 0, dir)
+obj.copybuffer("object", "tempbuffer")
+obj.clearbuffer("tempbuffer")
