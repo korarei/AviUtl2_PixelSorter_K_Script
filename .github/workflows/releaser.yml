@@ -89,7 +89,7 @@ jobs:
 
     - name: Build script
       run: |
-          python tools/build.py --tag ${{ github.ref_name }}
+          python tools/build.py --version ${{ github.ref_name }}
 
     - name: Create release
       uses: softprops/action-gh-release@v2
