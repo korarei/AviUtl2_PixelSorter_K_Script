@@ -1,4 +1,4 @@
---infomation:${SCRIPT_NAME} ${VERSION} by ${AUTHOR}
+--infomation:${PROJECT_NAME} ${VERSION} by ${AUTHOR}
 --label:${LABEL}
 --select@s0:Sort By=1,Luminance (BT.601)=0,Luminance (BT.709)=1,Luminance (BT.2020)=2,RGB Average=3,RGB Product=4,RGB Minimum=5,RGB Maximum=6
 --track0:Sort From,0,255,64
