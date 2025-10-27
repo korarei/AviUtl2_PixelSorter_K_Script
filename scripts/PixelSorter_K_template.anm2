@@ -36,8 +36,8 @@ local w, h = obj.getpixel()
 local rot = math.rad(dir)
 local c = math.abs(math.cos(rot))
 local s = math.abs(math.sin(rot))
-local meta_w = c * w + s * h
-local meta_h = s * w + c * h
+local meta_w = math.ceil(c * w + s * h)
+local meta_h = math.ceil(s * w + c * h)
 
 obj.setoption("drawtarget", "tempbuffer", meta_w, meta_h)
 obj.draw(0, 0, 0, 1, 1, 0, 0, -dir)
