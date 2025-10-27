@@ -74,7 +74,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: publish
-        path: ${{ github.workspace }}/build/publish
+        path: ${{ github.workspace }}/build/release
 
     - name: Extract script name
       run: |
