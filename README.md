@@ -11,10 +11,10 @@
 
 ## 動作確認
 
-- [AviUtl ExEdit2 beta16a](https://spring-fragrance.mints.ne.jp/aviutl/)
+- [AviUtl ExEdit2 beta17](https://spring-fragrance.mints.ne.jp/aviutl/)
 
 > [!CAUTION]
-> beta15以降必須．
+> beta17以降必須．
 
 ## 導入・削除・更新
 
@@ -129,5 +129,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 ## Change Log
+- **v1.0.1**
+  - `get_param_boolean`を使用するように変更．
+  - `Direction`変更時見切れる可能性があった問題を修正．
+
 - **v1.0.0**
   - Release
