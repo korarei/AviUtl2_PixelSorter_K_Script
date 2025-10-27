@@ -14,7 +14,7 @@
 #define VERSION L"0.1.0"
 #endif
 
-void
+static void
 sort(SCRIPT_MODULE_PARAM *p) {
     int n = p->get_param_num();
     if (n != 5) {
@@ -26,7 +26,7 @@ sort(SCRIPT_MODULE_PARAM *p) {
     const auto meta = reinterpret_cast<PIXEL_RGBA *>(p->get_param_data(1));
     const int w = p->get_param_int(2);
     const int h = p->get_param_int(3);
-    const bool mask = p->get_param_int(4);
+    const bool mask = p->get_param_boolean(4);
 
     const auto rows = std::views::iota(0, h);
     std::for_each(std::execution::par, rows.begin(), rows.end(), [&](int y) {
@@ -67,4 +67,12 @@ static SCRIPT_MODULE_TABLE script_module_table = {L"PixelSorter_K v" VERSION L" 
 extern "C" SCRIPT_MODULE_TABLE *
 GetScriptModuleTable(void) {
     return &script_module_table;
+}
+
+extern "C" bool
+InitializePlugin(DWORD v) {
+    if (v < 2001700)
+        return false;
+    else
+        return true;
 }

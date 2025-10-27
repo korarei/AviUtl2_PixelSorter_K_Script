@@ -27,7 +27,7 @@ local sort_from = (tonumber(_0.sort_from) or obj.track0) / 255.0
 local sort_to = (tonumber(_0.sort_to) or obj.track1) / 255.0
 local dir = tonumber(_0.dir) or obj.track2
 local col_space = tonumber(_0.col_space) or s1 s1 = nil
-local mask = tobool(_0.mask, obj.check0) and 1 or 0
+local mask = tobool(_0.mask, obj.check0)
 _0 = nil
 
 local lib = obj.module("PixelSorter_K")
